@@ -1,10 +1,15 @@
 import textwrap
 from room import Room
+from item import Item
 from player import Player
 
 wrapper = textwrap.TextWrapper(width=50)
+play = True
+
 
 # Declare all the rooms
+amulet = Item("Amulet", "Revives the wearer's beloved")
+trident = Item("Trident", "King Triton's prized posession")
 
 room = {
     'outside':  Room("Outside Cave Entrance",
@@ -18,7 +23,7 @@ into the darkness. Ahead to the north, a light flickers in
 the distance, but there is no way across the chasm."""),
 
     'narrow':   Room("Narrow Passage", """The narrow passage bends here from west
-to north. The smell of gold permeates the air."""),
+to north. The smell of gold permeates the air.""", [amulet, trident]),
 
     'treasure': Room("Treasure Chamber", """You've found the long-lost treasure
 chamber! Sadly, it has already been completely emptied by
@@ -43,7 +48,7 @@ room['treasure'].s_to = room['narrow']
 
 # Make a new player object that is currently in the 'outside' room.
 
-hero = Player("Norm", room["outside"])
+hero = Player("Norm", room["outside"], ["wood shield", "Sword of Might"])
 # Write a loop that:
 #
 # * Prints the current room name
@@ -55,28 +60,50 @@ hero = Player("Norm", room["outside"])
 #
 # If the user enters "q", quit the game.
 
-while True:
-    print("\n", hero.location.name)
-    description = wrapper.wrap(text=hero.location.description)
-    for i in description:
-        print(i)
 
-    p_input = input("Which direction would you like to go?: ")
-    check_input = p_input.upper()
+# def parse(in_string):
+#     command = in_string.upper()
+#     command = command.split()
+#     count = len(command)
 
+#     if count == 1:
+#         command = command[0]
+#     elif count > 1
+
+
+#     return count
+
+def move(direction, player):
+    global play
     try:
         if check_input == "Q":
-            break
+            play = False
         elif check_input == "N":  # move north
-            hero.change_location(hero.location.n_to)
+            player.change_location(player.location.n_to)
         elif check_input == "S":  # move south
-            hero.change_location(hero.location.s_to)
+            player.change_location(player.location.s_to)
         elif check_input == "E":  # move east
-            hero.change_location(hero.location.e_to)
+            player.change_location(player.location.e_to)
         elif check_input == "W":  # move west
-            hero.change_location(hero.location.w_to)
+            player.change_location(player.location.w_to)
         else:
             print("Please input a cardinal direction, or q to quit")
 
     except AttributeError:
         print("You try to walk through the wall, but it just isn't happening")
+
+
+while play == True:
+    print("\n" + hero.location.name)
+    description = wrapper.wrap(text=hero.location.description)
+    for i in description:
+        print(i)
+
+    if hero.location.items:
+        for i in hero.location.items:
+            print(i.name)
+
+    p_input = input("Which direction would you like to go?: ")
+    # print(parse(p_input))
+    check_input = p_input.upper()
+    move(check_input, hero)
