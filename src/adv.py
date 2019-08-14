@@ -56,10 +56,24 @@ hero = Player("Norm", room["outside"])
 # If the user enters "q", quit the game.
 
 while True:
-    print(hero.location.name)
+    print("\n", hero.location.name)
     description = wrapper.wrap(text=hero.location.description)
     for i in description:
         print(i)
     p_input = input("Which direction would you like to go?: ")
-    if p_input.upper() == "Q":
-        break
+    check_input = p_input.upper()
+    try:
+        if check_input == "Q":
+            break
+        elif check_input == "N":
+            hero.change_location(hero.location.n_to)
+        elif check_input == "S":
+            hero.change_location(hero.location.s_to)
+        elif check_input == "E":
+            hero.change_location(hero.location.e_to)
+        elif check_input == "W":
+            hero.change_location(hero.location.w_to)
+        else:
+            print("Please input a cardinal direction, or q to quit")
+    except AttributeError:
+        print("You try to walk through the wall, but it just isn't happening")
