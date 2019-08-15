@@ -95,6 +95,12 @@ def move(direction, player):
         print("You try to walk through the wall, but it just isn't happening")
 
 
+def parse(choice, player, move_cb):
+    c_list = choice.split(" ")
+    if len(c_list) == 1:
+        move_cb(c_list[0], player)
+
+
 while play == True:
     print("\n" + hero.location.name)
     description = wrapper.wrap(text=hero.location.description)
@@ -106,6 +112,5 @@ while play == True:
             print(i.name)
 
     p_input = input("Which direction would you like to go?: ")
-    # print(parse(p_input))
     check_input = p_input.upper()
-    move(check_input, hero)
+    parse(check_input, hero, move)
