@@ -75,30 +75,18 @@ hero = Player("Norm", room["outside"], ["wood shield", "Sword of Might"])
 
 #     return count
 
-def move(direction, player):
-    global play
-    try:
-        if check_input == "Q":
-            play = False
-        elif check_input == "N":  # move north
-            player.change_location(player.location.n_to)
-        elif check_input == "S":  # move south
-            player.change_location(player.location.s_to)
-        elif check_input == "E":  # move east
-            player.change_location(player.location.e_to)
-        elif check_input == "W":  # move west
-            player.change_location(player.location.w_to)
-        else:
-            print("Please input a cardinal direction, or q to quit")
 
-    except AttributeError:
-        print("You try to walk through the wall, but it just isn't happening")
-
-
-def parse(choice, player, move_cb):
+def parse(choice, player):
     c_list = choice.split(" ")
-    if len(c_list) == 1:
-        move_cb(c_list[0], player)
+    if len(c_list) < 1:
+        print("Please input a command")
+    elif len(c_list) == 1:
+        player.change_location(c_list[0])
+    else:
+        if c_list[0] == "TAKE":
+            player.take_item(c_list[1].lower())
+        else:
+            print("I don't understand")
 
 
 while play == True:
@@ -113,4 +101,6 @@ while play == True:
 
     p_input = input("Which direction would you like to go?: ")
     check_input = p_input.upper()
-    parse(check_input, hero, move)
+    if check_input in ("Q", "QUIT"):
+        play = False
+    parse(check_input, hero)
