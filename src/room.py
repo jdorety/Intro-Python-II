@@ -10,12 +10,18 @@ class Room:
 
     def rem_item(self, item):
         try:
-            self.items.remove(item)
+            items = [i.name.lower() for i in self.items]
+            item = item.lower()
+            print(items)
+            if item in items:
+                index = items.index(item)
+                get_it = self.items[index]
+                self.items.remove(self.items[index])
+                return get_it
+            else:
+                return False
         except(ValueError):
             print("Item does not exist")
 
     def add_item(self, item):
         self.items.append(item)
-
-
-
