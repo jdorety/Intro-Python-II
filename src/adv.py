@@ -86,6 +86,8 @@ def parse(choice, player):
     else:
         if c_list[0].upper() == "TAKE":
             player.take_item(c_list[1].lower())
+        elif c_list[0].upper() == "DROP":
+            player.drop_item(c_list[1].lower())
         else:
             print("I don't understand")
 
