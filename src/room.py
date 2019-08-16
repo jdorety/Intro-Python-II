@@ -12,7 +12,6 @@ class Room:
         try:
             items = [i.name.lower() for i in self.items]
             item = item.lower()
-            print(items)
             if item in items:
                 index = items.index(item)
                 get_it = self.items[index]
