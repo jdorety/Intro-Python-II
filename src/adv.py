@@ -80,6 +80,7 @@ hero = Player("Norm", room["outside"], [shield, sword])
 
 def print_items(room):
     if len(room.items) > 0:
+
         items = [i.name for i in room.items]
         vowel = "an" if items[0][0].lower() in (
             "a", "e", "i", "o", "u") else "a"
@@ -99,17 +100,19 @@ def print_items(room):
 
 def parse(choice, player):
     c_list = choice.split(" ")
+
     # No command is input
     if len(c_list) < 1:
         print("Please input a command")
+
     # One word inputs
     elif len(c_list) == 1:
-
         command = c_list[0].upper()
         if command in ('I', 'INV', 'INVENTORY'):
             player.show_inv()
         else:
             player.change_location(command)
+
     # Multiple word inputs
     else:
         verb = c_list[0].upper()
@@ -124,13 +127,17 @@ def parse(choice, player):
 
 while play == True:
     print("\n" + hero.location.name)
+
     description = wrapper.wrap(text=hero.location.description)
     for i in description:
         print(i)
+
     print_items(hero.location)
     p_input = input("What would you like to do?: ")
-    if p_input.upper() in ("Q", "QUIT"):
+
+    if p_input.upper() in ("Q", "QUIT", "EXIT"):
         play = False
         break
+
     print("~~~~~~~~~~~~~~~~~~~~~~~~~~")
     parse(p_input, hero)

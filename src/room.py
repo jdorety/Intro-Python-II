@@ -9,16 +9,20 @@ class Room:
         self.items = items
 
     def rem_item(self, item):
+
         try:
             items = [i.name.lower() for i in self.items]
             item = item.lower()
+
             if item in items:
                 index = items.index(item)
                 get_it = self.items[index]
                 self.items.remove(self.items[index])
                 return get_it
+
             else:
                 return False
+
         except(ValueError):
             print("Item does not exist")
 

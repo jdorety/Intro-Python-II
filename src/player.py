@@ -3,6 +3,7 @@
 
 
 class Player:
+
     def __init__(self, name, location, inventory):
         self.name = name
         self.location = location
@@ -10,6 +11,7 @@ class Player:
 
     def change_location(self, direction):
         direction = direction.upper()
+        
         try:
             if direction == "N":
                 self.location = self.location.n_to
@@ -21,6 +23,7 @@ class Player:
                 self.location = self.location.w_to
             else:
                 print("I'm afraid I can't do that")
+
         except AttributeError:
             print("You can't go that way")
 
@@ -32,6 +35,7 @@ class Player:
 
     def take_item(self, item):
         get_it = self.location.rem_item(item)
+
         if get_it == False:
             print("No item by that description is here")
         else:
@@ -41,6 +45,7 @@ class Player:
     def drop_item(self, item):
         item = item.lower()
         inv = [i.name.lower() for i in self.inventory]
+
         if item in inv:
             index = inv.index(item)
             get_it = self.inventory[index]
