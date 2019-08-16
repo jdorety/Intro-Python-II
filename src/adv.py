@@ -91,8 +91,8 @@ def print_items(room):
         elif len(items) > 2:
             items[-1] = f"and {items[-1]}"
             end = ", ".join(items)
-            print(f"You see {vowel} ", end)
-            
+            print(f"You see {vowel}", end)
+
     else:
         return
 
@@ -131,5 +131,6 @@ while play == True:
     p_input = input("What would you like to do?: ")
     if p_input.upper() in ("Q", "QUIT"):
         play = False
+        break
     print("~~~~~~~~~~~~~~~~~~~~~~~~~~")
     parse(p_input, hero)
