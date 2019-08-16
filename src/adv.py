@@ -85,17 +85,19 @@ def parse(choice, player):
     # One word inputs
     elif len(c_list) == 1:
 
-        com = c_list[0].upper()
-        if com in ('I', 'INV', 'INVENTORY'):
+        command = c_list[0].upper()
+        if command in ('I', 'INV', 'INVENTORY'):
             player.show_inv()
         else:
-            player.change_location(com)
+            player.change_location(command)
     # Multiple word inputs
     else:
-        if c_list[0].upper() in ("TAKE", "GET"):
-            player.take_item(c_list[1].lower())  # take item method
-        elif c_list[0].upper() == "DROP":
-            player.drop_item(c_list[1].lower())  # drop item method
+        verb = c_list[0].upper()
+        noun = c_list[1].lower()
+        if verb in ("TAKE", "GET"):
+            player.take_item(noun)  # take item method
+        elif verb == "DROP":
+            player.drop_item(noun)  # drop item method
         else:
             print("I don't understand")
 
