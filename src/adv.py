@@ -49,8 +49,9 @@ room['treasure'].s_to = room['narrow']
 #
 
 # Make a new player object that is currently in the 'outside' room.
-
-hero = Player("Norm", room["outside"], ["wood shield", "Sword of Might"])
+shield = Item("Shield", "Wooden Shielf")
+sword = Item("Sword", "Sword of might!")
+hero = Player("Norm", room["outside"], [shield, sword])
 # Write a loop that:
 #
 # * Prints the current room name
@@ -83,13 +84,14 @@ def parse(choice, player):
     elif len(c_list) == 1:
         player.change_location(c_list[0])
     else:
-        if c_list[0] == "TAKE":
+        if c_list[0].upper() == "TAKE":
             player.take_item(c_list[1].lower())
         else:
             print("I don't understand")
 
 
 while play == True:
+    print([i.name for i in hero.inventory])
     print("\n" + hero.location.name)
     description = wrapper.wrap(text=hero.location.description)
     for i in description:
@@ -100,7 +102,6 @@ while play == True:
             print(i.name)
 
     p_input = input("Which direction would you like to go?: ")
-    check_input = p_input.upper()
-    if check_input in ("Q", "QUIT"):
+    if p_input.upper() in ("Q", "QUIT"):
         play = False
-    parse(check_input, hero)
+    parse(p_input, hero)
