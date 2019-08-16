@@ -32,5 +32,12 @@ class Player:
             self.inventory.append(new_item)
 
     def drop_item(self, item):
-        self.inventory.rem_item(item)
-        self.location.append(item)
+        item = item.lower()
+        inv = [i.name.lower() for i in self.inventory]
+        if item in inv:
+            index = inv.index(item)
+            get_it = self.inventory[index]
+            self.inventory.remove(self.inventory[index])
+            self.location.add_item(get_it)
+        else:
+            print("What?")
