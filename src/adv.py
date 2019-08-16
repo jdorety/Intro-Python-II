@@ -76,6 +76,15 @@ hero = Player("Norm", room["outside"], [shield, sword])
 
 #     return count
 
+def print_items(room):
+    if len(room.items) > 0:
+        items = [i.name for i in room.items]
+        items[-1] = f"and {items[-1]}"
+        end = ", ".join(items)
+        print(f"You see", end)
+    else:
+        return
+
 
 def parse(choice, player):
     c_list = choice.split(" ")
@@ -107,7 +116,9 @@ while play == True:
     description = wrapper.wrap(text=hero.location.description)
     for i in description:
         print(i)
+    print_items(hero.location)
     p_input = input("What would you like to do?: ")
     if p_input.upper() in ("Q", "QUIT"):
         play = False
+    print("~~~~~~~~~~~~~~~~~~~~~~~~~~")
     parse(p_input, hero)
