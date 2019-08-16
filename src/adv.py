@@ -79,19 +79,23 @@ hero = Player("Norm", room["outside"], [shield, sword])
 
 def parse(choice, player):
     c_list = choice.split(" ")
+    # No command is input
     if len(c_list) < 1:
         print("Please input a command")
+    # One word inputs
     elif len(c_list) == 1:
+
         com = c_list[0].upper()
         if com in ('I', 'INV', 'INVENTORY'):
             player.show_inv()
         else:
             player.change_location(com)
+    # Multiple word inputs
     else:
-        if c_list[0].upper() == "TAKE":
-            player.take_item(c_list[1].lower())
+        if c_list[0].upper() in ("TAKE", "GET"):
+            player.take_item(c_list[1].lower())  # take item method
         elif c_list[0].upper() == "DROP":
-            player.drop_item(c_list[1].lower())
+            player.drop_item(c_list[1].lower())  # drop item method
         else:
             print("I don't understand")
 
