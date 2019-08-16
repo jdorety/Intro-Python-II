@@ -24,6 +24,12 @@ class Player:
         except AttributeError:
             print("You can't go that way")
 
+    def show_inv(self):
+        inv = [i.name for i in self.inventory]
+        print("You are carrying:")
+        for i in inv:
+            print(i)
+
     def take_item(self, item):
         new_item = self.location.rem_item(item)
         if new_item == False:
