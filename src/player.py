@@ -9,6 +9,7 @@ class Player:
         self.inventory = inventory
 
     def change_location(self, direction):
+        direction = direction.upper()
         try:
             if direction == "N":
                 self.location = self.location.n_to
@@ -24,8 +25,11 @@ class Player:
             print("You can't go that way")
 
     def take_item(self, item):
-        self.location.rem_item(item)
-        self.inventory.append(item)
+        new_item = self.location.rem_item(item)
+        if new_item == False:
+            print("No item by that description is here")
+        else:
+            self.inventory.append(new_item)
 
     def drop_item(self, item):
         self.inventory.rem_item(item)
