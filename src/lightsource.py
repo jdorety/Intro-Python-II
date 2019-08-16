@@ -10,3 +10,6 @@ class LightSource(Item):
     def __str__(self):
         power = "on" if self.activated else "off"
         return f"The {self.name} is {power}"
+
+    def on_drop(self):
+        print(f"You probably shoudn't drop this {self.name}")

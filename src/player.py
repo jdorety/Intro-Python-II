@@ -31,12 +31,12 @@ class Player:
             print(i)
 
     def take_item(self, item):
-        new_item = self.location.rem_item(item)
-        if new_item == False:
+        get_it = self.location.rem_item(item)
+        if get_it == False:
             print("No item by that description is here")
         else:
-            self.inventory.append(new_item)
-            print(f"You took the {new_item.name}")
+            self.inventory.append(get_it)
+            get_it.on_take()
 
     def drop_item(self, item):
         item = item.lower()
@@ -46,6 +46,6 @@ class Player:
             get_it = self.inventory[index]
             self.inventory.remove(self.inventory[index])
             self.location.add_item(get_it)
-            print(f"You dropped the {get_it.name}")
+            get_it.on_drop()
         else:
             print("What?")
