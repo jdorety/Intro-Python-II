@@ -20,7 +20,7 @@ class Player:
             elif direction == "W":
                 self.location = self.location.w_to
             else:
-                print("Please input a cardinal direction, or q to quit")
+                print("I'm afraid I can't do that")
         except AttributeError:
             print("You can't go that way")
 
@@ -36,6 +36,7 @@ class Player:
             print("No item by that description is here")
         else:
             self.inventory.append(new_item)
+            print(f"You took the {new_item.name}")
 
     def drop_item(self, item):
         item = item.lower()
@@ -45,5 +46,6 @@ class Player:
             get_it = self.inventory[index]
             self.inventory.remove(self.inventory[index])
             self.location.add_item(get_it)
+            print(f"You dropped the {get_it.name}")
         else:
             print("What?")
