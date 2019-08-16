@@ -3,6 +3,7 @@
 import textwrap
 from room import Room
 from item import Item
+from lightsource import LightSource
 from player import Player
 
 wrapper = textwrap.TextWrapper(width=50)
@@ -12,13 +13,14 @@ play = True
 # Declare all the rooms
 amulet = Item("Amulet", "Revives the wearer's beloved")
 trident = Item("Trident", "King Triton's prized posession")
+torch = LightSource("Torch", "a wooden torch", True)
 
 room = {
     'outside':  Room("Outside Cave Entrance",
                      "North of you, the cave mount beckons"),
 
     'foyer':    Room("Foyer", """Dim light filters in from the south. Dusty
-passages run north and east."""),
+passages run north and east.""", [torch]),
 
     'overlook': Room("Grand Overlook", """A steep cliff appears before you, falling
 into the darkness. Ahead to the north, a light flickers in
@@ -79,9 +81,18 @@ hero = Player("Norm", room["outside"], [shield, sword])
 def print_items(room):
     if len(room.items) > 0:
         items = [i.name for i in room.items]
-        items[-1] = f"and {items[-1]}"
-        end = ", ".join(items)
-        print(f"You see", end)
+        vowel = "an" if items[0][0].lower() in (
+            "a", "e", "i", "o", "u") else "a"
+
+        if len(items) == 1:
+            print(f"You see {vowel} {items[0]}")
+        if len(items) == 2:
+            print(f"You see {vowel} {items[0]} and {items[1]}")
+        elif len(items) > 2:
+            items[-1] = f"and {items[-1]}"
+            end = ", ".join(items)
+            print(f"You see {vowel} ", end)
+            
     else:
         return
 
