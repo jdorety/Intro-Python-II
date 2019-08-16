@@ -82,7 +82,11 @@ def parse(choice, player):
     if len(c_list) < 1:
         print("Please input a command")
     elif len(c_list) == 1:
-        player.change_location(c_list[0])
+        com = c_list[0].upper()
+        if com in ('I', 'INV', 'INVENTORY'):
+            player.show_inv()
+        else:
+            player.change_location(com)
     else:
         if c_list[0].upper() == "TAKE":
             player.take_item(c_list[1].lower())
@@ -93,17 +97,11 @@ def parse(choice, player):
 
 
 while play == True:
-    print([i.name for i in hero.inventory])
     print("\n" + hero.location.name)
     description = wrapper.wrap(text=hero.location.description)
     for i in description:
         print(i)
-
-    if hero.location.items:
-        for i in hero.location.items:
-            print(i.name)
-
-    p_input = input("Which direction would you like to go?: ")
+    p_input = input("What would you like to do?: ")
     if p_input.upper() in ("Q", "QUIT"):
         play = False
     parse(p_input, hero)
